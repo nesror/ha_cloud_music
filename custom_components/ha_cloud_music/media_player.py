@@ -557,10 +557,14 @@ class MediaPlayer(MediaPlayerEntity):
                 url = await self.api_music.get_song_url(music_info['id'])
                 return url
         
-        url = await self.api_music.get_redirect_url(music_info['url'])
-        # 如果没有url，则去咪咕搜索
-        if url == None:
+        canPlay = await self.api_music.check_music(music_info['id'])
+        if(canPlay){
+            return music_info['url']
+        }else{
+            # 音乐不可用则去咪咕搜索
             url = await self.api_music.migu_search(music_info['song'], music_info['singer'])
+            return url
+        }
         return url
                             
     def music_load(self):
