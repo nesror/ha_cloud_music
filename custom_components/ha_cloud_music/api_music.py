@@ -91,10 +91,6 @@ class ApiMusic():
     async def get_song_url(self, id):
         obj = await self.get("/song/url?id=" + str(id))
         return obj['data'][0]['url']
-    
-    async def check_music(self, id):
-        obj = await self.get("/check/music?id=" + str(id))
-        return obj['data']['success']
 
     # 获取重写向后的地址
     async def get_redirect_url(self, url):
